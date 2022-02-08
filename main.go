@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fcc-request-header-parser-ms/handlers"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	fmt.Println("Hello world!")
+	r := gin.New()
+	r.GET("/api/whoami", handlers.WhoAmIHandler)
+	r.Run(":3000")
 }
