@@ -10,13 +10,7 @@ import (
 
 func WhoAmIHandler(c *gin.Context) {
 	var whoami models.WhoAmI
-	ipAddress, err := helpers.GetIPAddress()
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "can't get ip address",
-		})
-		return
-	}
+	ipAddress, _ := helpers.GetIPAddress()
 	whoami.IPAddress = ipAddress.String()
 
 	lang := c.GetHeader("Accept-Language")

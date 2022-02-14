@@ -26,11 +26,6 @@ func TestWhoAmI(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ipNotFoundResBody, err := json.Marshal(gin.H{
-	// 	"message": "can't get ip address",
-	// })
-	// assert.NoError(t, err)
-
 	langNotFoundResBody, err := json.Marshal(gin.H{
 		"message": "can't get language from the header",
 	})
@@ -48,7 +43,7 @@ func TestWhoAmI(t *testing.T) {
 		resBody    []byte
 	}{
 		{
-			name: "success",
+			name: "should return 200 status code when user is connected with internet to browser",
 			reqHead: func(req *http.Request) {
 				req.Header.Set("Accept-Language", acceptLang)
 				req.Header.Set("User-Agent", userAgent)
@@ -56,17 +51,8 @@ func TestWhoAmI(t *testing.T) {
 			statusCode: http.StatusOK,
 			resBody:    sucResBody,
 		},
-		// {
-		// 	name: "fail ip address not found",
-		// 	reqHead: func(req *http.Request) {
-		// 		req.Header.Set("Accept-Language", acceptLang)
-		// 		req.Header.Set("User-Agent", userAgent)
-		// 	},
-		// 	statusCode: http.StatusBadRequest,
-		// 	resBody:    ipNotFoundResBody,
-		// },
 		{
-			name: "fail language header not found",
+			name: "should return 400 status code when language header is not found",
 			reqHead: func(req *http.Request) {
 				req.Header.Set("User-Agent", userAgent)
 			},
@@ -74,7 +60,7 @@ func TestWhoAmI(t *testing.T) {
 			resBody:    langNotFoundResBody,
 		},
 		{
-			name: "fail user agent header not found",
+			name: "should return 400 status code when user agent header is not found",
 			reqHead: func(req *http.Request) {
 				req.Header.Set("Accept-Language", acceptLang)
 			},
