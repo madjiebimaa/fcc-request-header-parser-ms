@@ -1,0 +1,6 @@
+version: "3"
+services:
+  fcc-request-header-parser-ms:
+    image: madjiebimaa/fcc-request-header-parser-ms:v1
+    ports:
+      - 3000:3000
